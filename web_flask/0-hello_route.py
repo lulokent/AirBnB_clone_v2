@@ -3,14 +3,14 @@
     Listens on 0.0.0.0, port 5000
 """
 from flask import Flask
-web_app = Flask(__name__)
+w_app = Flask(__name__)
 
 
-@web_app.route('/', strict_slashes=False)
-def app_respone():
+@w_app.route('/', strict_slashes=False)
+def Landing_pg():
     """ Displays greeting 'Hello HBNB'"""
     return "Hello HBNB!"
 
 
 if __name__ == "__main__":
-    web_app.run(host="0.0.0.0")
+    w_app.run(host="0.0.0.0", port=5000)
