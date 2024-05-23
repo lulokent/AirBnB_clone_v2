@@ -22,7 +22,7 @@ def c_with_text(text):
     return 'C ' + text.replace('_', ' ')
 
 
-@w_app.route('/python/', defaults={'text':'is_cool'})
+@w_app.route('/python/', defaults={'text': 'is_cool'})
 @w_app.route('/python/<text>')
 def python_text_params(text):
     """ Displays python followed by value of text """
@@ -30,7 +30,7 @@ def python_text_params(text):
 
 
 @w_app.route('/number/<int:n>')
-def num_display(n):
+def number(n):
     """ returns 'n is a number' is n is integer """
     return "{} is a number".format(n)
 
