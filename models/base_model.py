@@ -29,15 +29,19 @@ class BaseModel:
             *args (any): This variable is unused
             *kwargs (dict): attributes with key/value pairs
         """
-        self.id = str(uuid4())
-        self.created_at = self.updated_at = datetime.utcnow()
-        
         if kwargs:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
                     v = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
                 if k != "__class__":
                     setattr(self, k, v)
+            if "id" not in kwargs:
+                self.id = str(uuid.uuid4())
+            if "created_at" not in kwargs:
+                self.created_at = self.updated_at = datetime.now()
+        else:
+            self.id = str(uuid4())
+            self.created_at = self.updated_at = datetime.now()
 
     def __str__(self):
         """Returns a string representation of the BaseModel instance"""
@@ -59,7 +63,8 @@ class BaseModel:
         _dict["__class__"] = str(type(self).__name__)
         _dict["created_at"] = self.created_at.isoformat()
         _dict["updated_at"] = self.updated_at.isoformat()
-        _dict.pop("_sa_instance_state", None)
+        if "_sa_instance_state" in _dict:
+            _dict.pop("_sa_instance_state", None)
         return _dict
 
     def delete(self):
