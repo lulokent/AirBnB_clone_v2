@@ -1,16 +1,7 @@
 -- Creates a MySQL server with:
--- Creates the database if it doesn't exist.
+-- Creates the database if it doesn't exist and new user.
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
-
--- Create user if it doesn't exit
-CREATE USER IF NOT EXITS 'hbnb_Dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
-
--- Grant Privileges on hbnb_dev_db
-GRANT ALL PRIVILGES ON hbnb_dev_db.* To 'hbnb_dev'@'localhost';
--- Flush Privilege
+CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
 FLUSH PRIVILEGES;
-
--- Grant Select Privilege on performance schema
-GRANT SELECT ON performanc_schema.* TO 'hbnb_dev'@'localhost';
--- Flush Privilege
-FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost';
+GRANT SELECT ON performance_schema.* to 'hbnb_dev'@'localhost';
