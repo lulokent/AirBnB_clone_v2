@@ -64,7 +64,6 @@ class Place(BaseModel, Base):
             for k in allReviews.values():
                 if k.place_id == self.id:
                     _list.append(k)
-                
             return (_list)
 
         @property
@@ -75,7 +74,6 @@ class Place(BaseModel, Base):
             for k in _allAmenity.values():
                 if k.place_id == self.id:
                     _list.append(k)
-                
             return (_list)
 
         @amenities.setter
