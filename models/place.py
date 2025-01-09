@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """place class"""
+
+import models
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Table, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
-import models
 
 
 place_amenity = Table("place_amenity", Base.metadata,
@@ -58,26 +59,27 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """ gets a list of review ids """
-            _data = models.storage.all()
+            _allReviews = models.storage.all(Review)
             _list = []
-            _res = []
-            for k in var:
-                _review = k.replace('.', ' ')
-                _review = shlex.split(_review)
-                if (_review[0] == 'Review'):
-                    _list.append(_data[k])
-            for el in _list:
-                if (el.place_id == self.id):
-                    _res.append(el)
-            return (_res)
+            for k in allReviews.values():
+                if k.place_id == self.id:
+                    _list.append(k)
+                
+            return (_list)
 
         @property
         def amenities(self):
             """ gets a list of amenity ids"""
-            return self.amenity_ids
+            _allAmenity = models.storage.all(Amenity)
+            _list = []
+            for k in _allAmenity.values():
+                if k.place_id == self.id:
+                    _list.append(k)
+                
+            return (_list)
 
         @amenities.setter
-        def amenities(self, obj=None):
+        def amenities(self, _amenObj):
             """ add obj id to amenity """
-            if type(obj) is Amenity and obj.id not in self.amenity_ids:
-                self.amenity_ids.append(obj.id)
+            if isinstance(_amenObj, models.Amenity):
+                self.amenities.append(_amenObj.id)
