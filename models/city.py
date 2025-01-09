@@ -2,8 +2,8 @@
 """ City Module for HBNB project """
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, MetaData, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.orm import relationship
 from os import getenv
 
 
